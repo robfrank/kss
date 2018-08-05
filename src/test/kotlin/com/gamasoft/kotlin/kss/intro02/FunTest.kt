@@ -4,34 +4,39 @@ import assertk.assert
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotNull
 import org.junit.jupiter.api.Test
+import java.util.*
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class FunTest {
 
     @Test
-    fun defineAFunctionWithoutAClass(){
+    fun defineAFunctionWithoutAClass() {
 
         //replace TODO with a value to make the test pass
-        fun myfun(): String { return TODO()}
+        fun myfun(): String {
+            return "Kotlin is Fun"
+        }
 
         assert(myfun()).isEqualTo("Kotlin is Fun")
     }
 
     @Test
-    fun singleStatementFunctionsDontNeedReturn(){
+    fun singleStatementFunctionsDontNeedReturn() {
 
         //replace TODO with a value to make the test pass
-        fun myfun(): String = TODO()
+        fun myfun(): String = "Kotlin is Fun"
 
         assert(myfun()).isEqualTo("Kotlin is Fun")
     }
 
     @Test
-    fun nestedFun(){
+    fun nestedFun() {
 
         //replace TODO with a value to make the test pass
         fun myFun(): String {
             fun myNestedFun(): String {
-                return TODO()
+                return "Kotlin Fun can be nested!"
             }
             return myNestedFun()
         }
@@ -41,33 +46,31 @@ class FunTest {
 
 
     @Test
-    fun singleStatementFunDeclaration(){
+    fun singleStatementFunDeclaration() {
 
         //replace TODO with a value to make the test pass
-        fun double(x: Int): Int = TODO()
+        fun double(x: Int): Int = x * 2
 
         assert(double(5)).isEqualTo(10)
 
     }
 
     @Test
-    fun createJavaObject(){
+    fun createJavaObject() {
 
         //replace TODO with a value to make the test pass
 
-        val now: java.util.Date = TODO()
+        val now: java.util.Date = Date()
 
         assert(now).isNotNull()
 
     }
 
     @Test
-    fun defaultParameter(){
+    fun defaultParameter() {
 
         // fix it to make test pass
-        fun answer(x: Int = 37){
-            x.toString()
-        }
+        fun answer(x: Int = 42): String = x.toString()
 
         assert(answer(12)).isEqualTo("12")
         assert(answer()).isEqualTo("42")
@@ -75,12 +78,11 @@ class FunTest {
     }
 
 
-
     @Test
-    fun namedParameters(){
+    fun namedParameters() {
 
         //replace TODO with a value to make the test pass
-        fun pitagora(hypotenuse: Double, leg: Double): Double = TODO()
+        fun pitagora(hypotenuse: Double, leg: Double): Double = sqrt(hypotenuse.pow(2) - leg.pow(2))
 
         assert(pitagora(5.0, 4.0)).isEqualTo(3.0)
         assert(pitagora(leg = 4.0, hypotenuse = 5.0)).isEqualTo(3.0)
@@ -88,21 +90,20 @@ class FunTest {
     }
 
 
-
     @Test
-    fun spreadAndVarArgs(){
+    fun spreadAndVarArgs() {
 
-        fun myConcat(vararg xs: String): String{
+        fun myConcat(vararg xs: String): String {
 
             return xs.joinToString()
 
         }
 
-        val nums = arrayOf("1","2","3")
+        val nums = arrayOf("1", "2", "3")
 
         val result = myConcat(*nums)
 
-        val result2 = myConcat() //choose correct arguments
+        val result2 = myConcat("1", "2", "3") //choose correct arguments
 
         assert(result).isEqualTo(result2)
     }
