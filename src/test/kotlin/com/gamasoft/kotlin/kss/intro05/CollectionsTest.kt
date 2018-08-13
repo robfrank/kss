@@ -1,19 +1,21 @@
 package com.gamasoft.kotlin.kss.intro05
 
 import assertk.assert
-import assertk.assertions.*
+import assertk.assertions.contains
+import assertk.assertions.doesNotContain
+import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.Test
 
 class CollectionsTest {
 
 
     @Test
-    fun mapOperators(){
+    fun mapOperators() {
 
         val pricesShop1 = mapOf("toy car" to 10, "cards" to 5, "candy" to 2)
         val pricesShop2 = mapOf("toy car" to 12, "teddy bear" to 8, "book" to 6)
 
-        val notToBuy = "book"
+        val notToBuy = "toy car"
         val all = pricesShop1 + pricesShop2 - notToBuy
 
         assert(all).contains("cards", 5)
@@ -22,33 +24,36 @@ class CollectionsTest {
     }
 
     fun palindrome(s: String): String {
-        TODO()
+        return s + s.reversed()
     }
 
     @Test
-    fun namedFunctionAsParam(){
+    fun namedFunctionAsParam() {
 
         val words = "It was a dark and stormy night".split(" ")
-        assert (words.map (::palindrome).joinToString())
+        assert(words.map(::palindrome)
+                .joinToString())
                 .isEqualTo("IttI, wassaw, aa, darkkrad, anddna, stormyymrots, nightthgin")
 
     }
 
 
     @Test
-    fun sumOfEvenNumbers(){
+    fun sumOfEvenNumbers() {
 
-        val total = (1 .. 20).toList().filter { it % 3 == 0 } .sum()
+        val total = (1..20).toList()
+                .filter { it % 2 == 0 }
+                .sum()
 
         assert(total).isEqualTo(110)
     }
 
     @Test
-    fun mapOverCollection(){
+    fun mapOverCollection() {
 
-        val square: (Int) -> Int = { it + it }
-        val total = (1 .. 24).toList()
-                .map (square)
+        val square: (Int) -> Int = { it * it }
+        val total = (1..24).toList()
+                .map(square)
                 .sum()
 
         assert(total).isEqualTo(4900)
@@ -56,39 +61,39 @@ class CollectionsTest {
 
 
     @Test
-    fun foldOverCollection(){
+    fun foldOverCollection() {
 
-        val factor = (1 .. 10).toList()
-                .fold (1) { a, x -> TODO()}
+        val factor = (1..10)
+                .toList()
+                .fold(1) { a, x -> a * x }
 
         assert(factor).isEqualTo(3628800)
     }
 
 
     @Test
-    fun foldOverString(){
+    fun foldOverString() {
 
         val word = "Hello World".toList()
         val factor = word
-                .fold ("") { a, c -> TODO() }
+                .fold("") { a, c -> c + a }
 
         assert(factor).isEqualTo("dlroW olleH")
     }
 
 
-
     @Test
-    fun flatMap(){
+    fun flatMap() {
 
         val words = listOf("Hello".toList(), "World".toList(), "Kotlin".toList())
 
-        val transform: (List<Char>) -> List<Char> = TODO()
+        val transform: (List<Char>) -> List<Char> = { it }
 
         val charsList = words
                 .flatMap(transform)
-                .map {it.toLowerCase()}
+                .map { it.toLowerCase() }
                 .sorted()
-                .groupingBy{ it }
+                .groupingBy { it }
                 .eachCount()
         assert(charsList.get('l')).isEqualTo(4)
     }
@@ -110,7 +115,10 @@ class CollectionsTest {
         var prevNum = 0
 
         return generateSequence {
-             TODO()
+            val nn = num + prevNum
+            prevNum = num
+            num = nn
+            num
             //modify num and prevNum and then return the next fibonacci number in the sequence
         }
     }
